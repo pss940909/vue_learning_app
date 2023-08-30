@@ -10,7 +10,7 @@
     >
   </base-card>
   <keep-alive>
-    <component :is="selectedTab" @addResource="addResource"></component>
+    <component :is="selectedTab"></component>
   </keep-alive>
 </template>
 

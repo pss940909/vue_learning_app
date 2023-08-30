@@ -26,16 +26,28 @@
       </div>
     </form>
   </base-card>
+  <base-dialog
+    title="Input is invalid."
+    v-if="inputIsInvalid"
+    @close="closeDialog"
+  >
+    <template #default> Please enter all required information. </template>
+    <template #actions>
+      <base-button @click.prevent="closeDialog">Okay</base-button>
+    </template>
+  </base-dialog>
 </template>
 
 <script>
 import BaseButton from '../UI/BaseButton.vue';
 import BaseCard from '../UI/BaseCard.vue';
+import BaseDialog from '../UI/BaseDialog.vue';
 export default {
-  components: { BaseCard, BaseButton },
+  components: { BaseCard, BaseButton, BaseDialog },
   data() {
     return {
       newResource: {},
+      inputIsInvalid: false,
     };
   },
   methods: {
@@ -43,10 +55,23 @@ export default {
       const enteredTitle = this.$refs.titleInput.value;
       const enteredDes = this.$refs.desInput.value;
       const enteredLink = this.$refs.linkInput.value;
+      // 確認資料皆不為空值
+      if (
+        enteredTitle.trim() === '' ||
+        enteredDes.trim() === '' ||
+        enteredLink.trim() === ''
+      ) {
+        this.inputIsInvalid = true;
+        return; // 若有空值就不執行後續程式碼 直接返回
+      }
+
       this.addResource(enteredTitle, enteredDes, enteredLink);
       this.$refs.titleInput.value = '';
       this.$refs.desInput.value = '';
       this.$refs.linkInput.value = '';
+    },
+    closeDialog() {
+      this.inputIsInvalid = false;
     },
   },
   inject: ['addResource'],
