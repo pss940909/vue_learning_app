@@ -3,9 +3,11 @@
     <learning-resource
       v-for="item in storedResources"
       :key="item.id"
+      :id="item.id"
       :title="item.title"
       :des="item.description"
       :resLink="item.link"
+      @deleteResource="deleteResource"
     >
     </learning-resource>
   </ul>
@@ -18,7 +20,13 @@ export default {
   components: {
     LearningResource,
   },
-  inject: ['storedResources'],
+  inject: ['storedResources', 'removeResource'],
+  methods: {
+    deleteResource(id) {
+      console.log(id);
+      this.removeResource(id);
+    },
+  },
 };
 </script>
 

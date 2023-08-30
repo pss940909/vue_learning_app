@@ -26,16 +26,18 @@
       </div>
     </form>
   </base-card>
-  <base-dialog
-    title="Input is invalid."
-    v-if="inputIsInvalid"
-    @close="closeDialog"
-  >
-    <template #default> Please enter all required information. </template>
-    <template #actions>
-      <base-button @click.prevent="closeDialog">Okay</base-button>
-    </template>
-  </base-dialog>
+  <teleport to="body">
+    <base-dialog
+      title="Input is invalid."
+      v-if="inputIsInvalid"
+      @close="closeDialog"
+    >
+      <template #default> Please enter all required information. </template>
+      <template #actions>
+        <base-button @click.prevent="closeDialog">Okay</base-button>
+      </template>
+    </base-dialog>
+  </teleport>
 </template>
 
 <script>

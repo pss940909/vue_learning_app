@@ -4,7 +4,7 @@
       <div>
         <header>
           <h3>{{ title }}</h3>
-          <base-button type="button" mode="flat" @click.prevent="deleteItem"
+          <base-button type="button" mode="flat" @click.prevent="deleteItem(id)"
             >Delete</base-button
           >
         </header>
@@ -19,11 +19,13 @@
 
 <script>
 export default {
-  props: ['title', 'des', 'resLink'],
-  inject: ['deleteResource'],
+  props: ['id', 'title', 'des', 'resLink'],
   methods: {
-    deleteItem() {},
+    deleteItem(id) {
+      this.$emit('deleteResource', id);
+    },
   },
+  emits: ['deleteResource'],
 };
 </script>
 

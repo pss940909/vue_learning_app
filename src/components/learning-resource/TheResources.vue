@@ -54,6 +54,7 @@ export default {
     return {
       storedResources: this.storedResources,
       addResource: this.addResource,
+      removeResource: this.removeResource,
     };
   },
   methods: {
@@ -71,6 +72,12 @@ export default {
       };
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+    removeResource(id) {
+      // 可以使用 push / unshift / splice
+      // 不能使用filter 因為這樣會重新覆蓋掉原先所provide的data
+      const index = this.storedResources.findIndex((item) => item.id === id);
+      this.storedResources.splice(index, 1);
     },
   },
 };
